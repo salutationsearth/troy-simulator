@@ -17,14 +17,18 @@ public class Fighter extends Character
     public double initial_recoil_velocity = 30.0;
     public double recoil_velocity = 0.0;
     public boolean recoil = false;
-    
+    GreenfootImage[] walkRight = new GreenfootImage[10];
+    GreenfootImage[] walkLeft = new GreenfootImage[10]; 
+    int animCounter = 1; 
     public Fighter() {
-        velocity = 20;
+        velocity = 15;
     }
     public void act()
     {
         checkKeys();
         fall();
+        initAnimationSprites();
+        
     }
     
     public void moveRight() {
@@ -35,6 +39,7 @@ public class Fighter extends Character
     public void moveLeft() {
         if (!recoil) {
             setLocation(getX() - velocity, getY());
+            
         }
     }
     public void jump() {
@@ -79,12 +84,16 @@ public class Fighter extends Character
     
     private void checkKeys() {
         if (Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a")) {
-            setImage(left_file);
+            //setImage(left_file);
+            animateRunLeft(); 
             moveLeft();
+            //
         }
         if (Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d")) {
-            setImage(right_file);
+            //setImage(right_file);
+            animateRunRight(); 
             moveRight();
+            
         }
         if (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("w")) {
             setImage(jump_file);
@@ -94,5 +103,29 @@ public class Fighter extends Character
             // setImage(punch_file);
             punch();
         }
+        if(!(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))&&!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d")&&!(Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("w"))&&!(Greenfoot.mouseClicked(null)))){
+            setImage("idle.png");
+        }
+    }
+    
+    public void initAnimationSprites(){
+        for(int i = 1; i < 10; i++){
+            String filename = "f" + i + ".png";
+            walkRight[i] = new GreenfootImage(filename);
+        }
+        for(int i = 1; i < 10; i++){
+            String fileName = "f" + i + ".png";
+            walkLeft[i] = new GreenfootImage(fileName);
+            walkLeft[i].mirrorHorizontally();
+        }
+    }    
+    public void animateRunRight(){
+        setImage(walkRight[animCounter++%10]);
+    }
+    public void animateRunLeft(){
+        setImage(walkLeft[animCounter++%10]);
+    }
+    public void idle(){
+        setImage("idle.png");
     }
 }

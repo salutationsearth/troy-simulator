@@ -25,6 +25,6 @@ public class Character extends Actor
     public int hp;
     public void act()
     {
-        // Add your action code here.
+        
     }
 }
