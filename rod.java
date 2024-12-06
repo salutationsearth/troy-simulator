@@ -17,5 +17,8 @@ public class rod extends Enemy
         right_file = "man.png";
         jump_file = "man.png";
         hp = 5000; // PLACEHOLDER
+        jump_random = 10;
+        difficulty = 5000;
+        damage = 5;
     }
 }
