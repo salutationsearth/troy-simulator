@@ -20,6 +20,8 @@ public class Fighter extends Character
     GreenfootImage[] walkRight = new GreenfootImage[10];
     GreenfootImage[] walkLeft = new GreenfootImage[10]; 
     int animCounter = 1; 
+
+    
     public Fighter() {
         velocity = 15;
     }
@@ -127,4 +129,5 @@ public class Fighter extends Character
     public void idle(){
         setImage("idle.png");
     }
+
 }

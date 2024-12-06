@@ -5,35 +5,26 @@ import greenfoot.*;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class playerhealth extends Fighter{
+public class playerhealth extends Character{
     // instance variables - replace the example below with your own
     private int x;
-    private GreenfootImage myImage;
     /**
      * Constructor for objects of class timzhanghealth
      */
-    public playerhealth()
-    {
-        myImage = new GreenfootImage(350,100);
-        Actor fighter = (Actor)getWorld().getObjects(Fighter.class).get(0);
-        int health = hp; 
-        
-        Picture drawOnWorld = new Picture (myImage); 
-        addObject(drawOnWorld, 300,200); 
+    public playerhealth(){
+        GreenfootImage img = new GreenfootImage( 500, 50 );
+        img.drawRect(500,50,hp,50); // draws the open rectangle as a border around the image.
+        img.setColor( Color.RED );
+        img.fillRect(0,0,hp,50); // draws the filled rectangle inside the open rectangle.
+        setImage( img ); 
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
-    }
-    public void drawRect(int topLeftx, int topLefty){
-        myImage.setColor(Color.RED);
+    public void calchealth(){
+        GreenfootImage img = getImage();
+        img.clear();
+        img.setColor(Color.BLACK);
+        img.drawRect(500,50,hp,50);
+        img.setColor( Color.YELLOW );
+        hp -= 100; // add points to current score
+        img.fillRect( 0,0,hp,50);
     }
 }

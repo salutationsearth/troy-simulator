@@ -25,6 +25,6 @@ public class MyWorld extends World
     private void prepare() {
         addObject(new timzhang(), 960, 720);
         addObject(new rod(), 320, 720);
-        addObject(new playerhealth(),960,720); 
+        addObject(new playerhealth(),250,720); 
     }
 }

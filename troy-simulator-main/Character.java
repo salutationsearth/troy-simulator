@@ -22,7 +22,8 @@ public class Character extends Actor
     public int ground = 520;
     public int jump_random = 1000;
     public int[] enemy_stats_location = {100, 100};
-    public int hp;
+    public int hp = 500;
+    public boolean hit = false; 
     public void act()
     {
         
