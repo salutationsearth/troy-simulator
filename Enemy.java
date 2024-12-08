@@ -27,7 +27,7 @@ public class Enemy extends Character
         moveTowardsPlayer();
         fall(false);
         attack();
-        dodgeBullet();
+        // dodgeBullet();
         shoot();
         System.out.println("Enemy HP: " + Integer.toString(hp));
     }
