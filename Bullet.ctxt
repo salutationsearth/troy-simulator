@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Bullet
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Bullet\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=direction\ character
-comment1.target=Bullet(boolean,\ boolean)
+comment0.text=\n\ Write\ a\ description\ of\ class\ Bullet\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=direction\ character\ damage
+comment1.target=Bullet(boolean,\ boolean,\ int)
 comment2.params=
 comment2.target=void\ act()
 numComments=3

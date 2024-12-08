@@ -14,7 +14,7 @@ public class Enemy extends Character
      */
     public int difficulty;
     public int damage;
-    public int timedelay = Greenfoot.getRandomNumber(5) + 10; // 0.25 - 0.5 secs
+    public int timedelay = Greenfoot.getRandomNumber(2) + 5; // 0.25 - 0.5 secs
     public Enemy() {
         velocity = 2;
         hp = 1000; // placeholder
@@ -24,6 +24,7 @@ public class Enemy extends Character
         moveTowardsPlayer();
         fall(false);
         attack();
+        dodgeBullet();
         System.out.println("Enemy HP: " + Integer.toString(hp));
     }
     public void moveTowardsPlayer() {
@@ -46,11 +47,6 @@ public class Enemy extends Character
             }
         }
     }
-    public void jumpRandomly() {
-        if (Greenfoot.getRandomNumber(10000) <= jump_random) {
-            jump();
-        }
-    }
     public void attack() {
         if (!getObjectsInRange(70, Fighter.class).isEmpty()) {
             if (counter(timedelay)) {
@@ -62,6 +58,16 @@ public class Enemy extends Character
                 fighter.recoil = true;
                 fighter.recoil_velocity = initial_recoil_velocity/2 + recoil_acceleration;
                 timedelay = Greenfoot.getRandomNumber(241) + 60;
+            }
+        }
+    }
+    public void dodgeBullet() {
+        if (!getObjectsInRange(60, Bullet.class).isEmpty()) {
+            int chance = difficulty - 10;
+            if (Greenfoot.getRandomNumber(100) <= chance) {
+                Bullet bullet = getObjectsInRange(60, Bullet.class).get(0);
+                bullet.dodged = true;
+                jump();
             }
         }
     }

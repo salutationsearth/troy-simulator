@@ -23,5 +23,6 @@ public class timzhang extends Fighter
         jump_file = "f4.png";
         setImage("f5.png");
         hp = 100;
+        damage = 5;
     }
 }

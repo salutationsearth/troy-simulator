@@ -20,15 +20,13 @@ public class Character extends Actor
     public double gravity_velocity = 0;
     public double initial_jump_velocity = -30.0;
     public int ground = 520;
-    public int jump_random = 50;
-    public int[] enemy_stats_location = {100, 100};
     public int hp;
     public double recoil_acceleration = 3.0;
     public double initial_recoil_velocity = 30.0;
     public double recoil_velocity = 0.0;
     public boolean recoil = false;
     public int delaycounter;
-    public int fps = 60;
+    public int damage;
     public void act()
     {
         

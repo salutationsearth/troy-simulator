@@ -15,7 +15,7 @@ public class Fighter extends Character
     GreenfootImage[] walkRight = new GreenfootImage[10];
     GreenfootImage[] walkLeft = new GreenfootImage[10]; 
     public int animCounter = 1;
-    public int shootCooldown = 5;
+    public int shootCooldown = 2;
     public Fighter() {
         velocity = 15;
     }
@@ -41,7 +41,7 @@ public class Fighter extends Character
     public void punch() {
         if (!getObjectsInRange(70, Enemy.class).isEmpty()) {
             Enemy enemy = getObjectsInRange(70, Enemy.class).get(0);
-            enemy.hp -= 5;
+            enemy.hp -= damage;
             recoil = true;
             recoil_velocity = initial_recoil_velocity + recoil_acceleration;
             enemy.recoil = true;
@@ -50,9 +50,9 @@ public class Fighter extends Character
     }
     public void shoot() {
         if (counter(shootCooldown)) {
-            Enemy enemy = getObjectsInRange(70, Enemy.class).get(0);
+            Enemy enemy = (Enemy)getWorld().getObjects(Enemy.class).get(0);
             boolean left = enemy.getX() < getX();
-            getWorld().addObject(new Bullet(left, true), getX(), getY());
+            getWorld().addObject(new Bullet(left, true, damage), getX(), getY());
         }
     }
     
