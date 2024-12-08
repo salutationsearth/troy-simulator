@@ -16,6 +16,7 @@ public class Fighter extends Character
     GreenfootImage[] walkLeft = new GreenfootImage[10]; 
     public int animCounter = 1;
     public int shootCooldown = 2;
+    private DelayCounter shootcounter = new DelayCounter(shootCooldown);
     public Fighter() {
         velocity = 15;
     }
@@ -49,7 +50,7 @@ public class Fighter extends Character
         }
     }
     public void shoot() {
-        if (counter(shootCooldown)) {
+        if (shootcounter.counter()) {
             Enemy enemy = (Enemy)getWorld().getObjects(Enemy.class).get(0);
             boolean left = enemy.getX() < getX();
             getWorld().addObject(new Bullet(left, true, damage), getX(), getY());

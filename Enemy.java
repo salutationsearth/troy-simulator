@@ -14,7 +14,10 @@ public class Enemy extends Character
      */
     public int difficulty;
     public int damage;
-    public int timedelay = Greenfoot.getRandomNumber(2) + 5; // 0.25 - 0.5 secs
+    public int punchdelay = 5;
+    private DelayCounter punchcounter = new DelayCounter(punchdelay);
+    public int bulletdelay = 60;
+    private DelayCounter shootcounter = new DelayCounter(bulletdelay);
     public Enemy() {
         velocity = 2;
         hp = 1000; // placeholder
@@ -25,6 +28,7 @@ public class Enemy extends Character
         fall(false);
         attack();
         dodgeBullet();
+        shoot();
         System.out.println("Enemy HP: " + Integer.toString(hp));
     }
     public void moveTowardsPlayer() {
@@ -49,7 +53,7 @@ public class Enemy extends Character
     }
     public void attack() {
         if (!getObjectsInRange(70, Fighter.class).isEmpty()) {
-            if (counter(timedelay)) {
+            if (punchcounter.counter()) {
                 System.out.println("check");
                 Fighter fighter = getObjectsInRange(70, Fighter.class).get(0);
                 fighter.hp -= damage;
@@ -57,18 +61,26 @@ public class Enemy extends Character
                 recoil_velocity = initial_recoil_velocity + recoil_acceleration;
                 fighter.recoil = true;
                 fighter.recoil_velocity = initial_recoil_velocity/2 + recoil_acceleration;
-                timedelay = Greenfoot.getRandomNumber(241) + 60;
             }
         }
     }
     public void dodgeBullet() {
         if (!getObjectsInRange(60, Bullet.class).isEmpty()) {
-            int chance = difficulty - 10;
-            if (Greenfoot.getRandomNumber(100) <= chance) {
-                Bullet bullet = getObjectsInRange(60, Bullet.class).get(0);
-                bullet.dodged = true;
-                jump();
+            Bullet bullet = getObjectsInRange(60, Bullet.class).get(0);
+            if (bullet.fighter) {
+                int chance = difficulty - 10;
+                if (Greenfoot.getRandomNumber(100) <= chance) {
+                    bullet.dodged = true;
+                    jump();
+                }
             }
+        }
+    }
+    public void shoot() {
+        if (shootcounter.counter()) {
+            Fighter fighter = (Fighter)getWorld().getObjects(Fighter.class).get(0);
+            boolean left = fighter.getX() < getX();
+            getWorld().addObject(new Bullet(left, false, damage), getX(), getY());
         }
     }
 }

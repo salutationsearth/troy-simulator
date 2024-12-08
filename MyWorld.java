@@ -24,4 +24,5 @@ public class MyWorld extends World
         addObject(new rod(), 320, 720);
         setBackground(new GreenfootImage("rodbackground.png"));
     }
+    
 }
