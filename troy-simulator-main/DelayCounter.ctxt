@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=DelayCounter
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ DelayCounter\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=target
+comment1.target=DelayCounter(int)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ DelayCounter\r\n
+comment2.params=
+comment2.target=boolean\ counter()
+numComments=3
