@@ -13,11 +13,11 @@ public class rod extends Enemy
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public rod() {
-        left_file = "man.png";
-        right_file = "man.png";
-        jump_file = "man.png";
-        hp = 5000; // PLACEHOLDER
+        hp = 200; // PLACEHOLDER
+        maxhp = 200;
         difficulty = 100;
         damage = 5;
+        name = "Mr. Rod";
+        velocity = 2;
     }
 }

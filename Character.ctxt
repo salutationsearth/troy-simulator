@@ -9,6 +9,4 @@ comment3.params=
 comment3.target=void\ jump()
 comment4.params=
 comment4.target=void\ debugHP()
-comment5.params=frames
-comment5.target=boolean\ counter(int)
-numComments=6
+numComments=5

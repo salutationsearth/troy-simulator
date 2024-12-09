@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class Fighter here.
@@ -12,11 +13,17 @@ public class Fighter extends Character
      * Act - do whatever the Fighter wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    public String fileprefix;
     GreenfootImage[] walkRight = new GreenfootImage[10];
-    GreenfootImage[] walkLeft = new GreenfootImage[10]; 
+    GreenfootImage[] walkLeft = new GreenfootImage[10];
+    GreenfootImage rightidle;
+    GreenfootImage leftidle;
+    GreenfootImage jumpright;
+    GreenfootImage jumpleft;
     public int animCounter = 1;
     public int shootCooldown = 2;
     private DelayCounter shootcounter = new DelayCounter(shootCooldown);
+    private Countdown punchcountdown = new Countdown(6, "punch");
     public Fighter() {
         velocity = 15;
     }
@@ -25,6 +32,7 @@ public class Fighter extends Character
         checkKeys();
         fall(true);
         initAnimationSprites();
+        animateCountdowns();
         System.out.println("Fighter HP: " + Integer.toString(hp));
     }
     
@@ -36,10 +44,10 @@ public class Fighter extends Character
     public void moveLeft() {
         if (!recoil) {
             setLocation(getX() - velocity, getY());
-            
         }
     }
     public void punch() {
+        getWorld().addObject(punchcountdown, 0, 0);
         if (!getObjectsInRange(70, Enemy.class).isEmpty()) {
             Enemy enemy = getObjectsInRange(70, Enemy.class).get(0);
             enemy.hp -= damage;
@@ -71,7 +79,7 @@ public class Fighter extends Character
             
         }
         if (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("w")) {
-            setImage(jump_file);
+            // setImage(jump_file);
             jump();
         }
         if (Greenfoot.mouseClicked(null)) {
@@ -84,17 +92,17 @@ public class Fighter extends Character
             }
         }
         if(!(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))&&!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d")&&!(Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("w"))&&!(Greenfoot.mouseClicked(null)))){
-            setImage("idle.png");
+            idle();
         }
     }
     
     public void initAnimationSprites(){
         for(int i = 1; i < 10; i++){
-            String filename = "f" + i + ".png";
+            String filename = fileprefix + i + ".png";
             walkRight[i] = new GreenfootImage(filename);
         }
         for(int i = 1; i < 10; i++){
-            String fileName = "f" + i + ".png";
+            String fileName = fileprefix + i + ".png";
             walkLeft[i] = new GreenfootImage(fileName);
             walkLeft[i].mirrorHorizontally();
         }
@@ -106,6 +114,42 @@ public class Fighter extends Character
         setImage(walkLeft[animCounter++%10]);
     }
     public void idle(){
-        setImage("idle.png");
+        Enemy enemy = getWorld().getObjects(Enemy.class).get(0);
+        if (enemy.getX() > getX()) {
+            if (getY() < ground) {
+                setImage(jumpright);
+            }
+            else {
+                setImage(rightidle);
+            }
+        }
+        else {
+            if (getY() < ground) {
+                setImage(jumpleft);
+            }
+            else {
+                setImage(leftidle);
+            }
+        }
+    }
+    public void animateCountdowns() {
+        List<Countdown> countdowns = getWorld().getObjects(Countdown.class);
+        Enemy enemy = getWorld().getObjects(Enemy.class).get(0);
+        if (!countdowns.isEmpty()) {
+            for (Countdown c: countdowns) {
+                GreenfootImage image = new GreenfootImage(fileprefix + c.type + ".png");
+                if (enemy.getX() < getX()) {
+                    image.mirrorHorizontally();
+                }
+                setImage(image);
+            }
+        }
+        else if (attacked) {
+            GreenfootImage image = new GreenfootImage(fileprefix + "kb.png");
+            if (enemy.getX() < getX()) {
+                image.mirrorHorizontally();
+            }
+            setImage(image);
+        }
     }
 }

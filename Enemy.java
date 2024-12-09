@@ -14,14 +14,10 @@ public class Enemy extends Character
      */
     public int difficulty;
     public int damage;
-    public int punchdelay = 5;
+    public int punchdelay = 20;
     private DelayCounter punchcounter = new DelayCounter(punchdelay);
     public int bulletdelay = 60;
     private DelayCounter shootcounter = new DelayCounter(bulletdelay);
-    public Enemy() {
-        velocity = 2;
-        hp = 1000; // placeholder
-    }
     public void act()
     {
         moveTowardsPlayer();
@@ -61,6 +57,7 @@ public class Enemy extends Character
                 recoil_velocity = initial_recoil_velocity + recoil_acceleration;
                 fighter.recoil = true;
                 fighter.recoil_velocity = initial_recoil_velocity/2 + recoil_acceleration;
+                fighter.attacked = true;
             }
         }
     }
